@@ -65,14 +65,13 @@ include_once $layout.'/header.php';
                         <?php
                         $evt = $flash->getAllFlash();
                         while($flashData = $evt->fetch()){
-
-
                         ?>
                         <div class="single-upcoming-event">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="up-event-thumb">
-                                        <img src="<?=$asset?>/media/event-img-1.jpg" class="img-fluid" alt="Upcoming Event">
+                                        <input type="hidden" id="dateEvents" value="<?=$flashData['date_event']?>"/>
+                                        <img src="<?=$domaine?>/uploads/<?=$flashData['photo']?>" class="img-fluid" alt="Upcoming Event">
                                         <h4 class="up-event-date"><?=date('N', strtotime($flashData['date_event'])).' '. month_fr(date('m', strtotime($flashData['date_event']))).' '.date('Y', strtotime($flashData['date_event']))?></h4>
                                     </div>
                                 </div>
@@ -297,7 +296,6 @@ include_once $layout.'/header.php';
             </div>
         </div>
     </section>
-
 <section id="funfact-area">
     <div class="container-fluid">
         <div class="row text-center">
@@ -307,7 +305,16 @@ include_once $layout.'/header.php';
                         <img src="<?=$asset?>/media/user.svg" alt="Funfact">
                     </div>
                     <div class="funfact-info">
-                        <h5 class="funfact-count">4025</h5>
+                        <h5 class="funfact-count">
+                            <?php
+                            $nbUsr = $membre->nbrMmembre();
+                            if($nbrMemb = $nbUsr->fetch()){
+                                echo $nbrMemb['nb'];
+                            }else{
+                                echo '';
+                            }
+                            ?>
+                        </h5>
                         <p>Membres</p>
                     </div>
                 </div>
@@ -318,7 +325,16 @@ include_once $layout.'/header.php';
                         <img src="<?=$asset?>/media/picture.svg" alt="Funfact">
                     </div>
                     <div class="funfact-info">
-                        <h5 class="funfact-count">8725</h5>
+                        <h5 class="funfact-count">
+                            <?php
+                            $nbGals = $gallerie->nbrGaler();
+                            if($nbrGals = $nbGals->fetch()){
+                                echo $nbrGals['nb'];
+                            }else{
+                                echo '';
+                            }
+                            ?>
+                        </h5>
                         <p>Photos</p>
                     </div>
                 </div>
@@ -329,7 +345,16 @@ include_once $layout.'/header.php';
                         <img src="<?=$asset?>/media/event.svg" alt="Funfact">
                     </div>
                     <div class="funfact-info">
-                        <h5><span class="funfact-count">231</span>+</h5>
+                        <h5><span class="funfact-count">
+                                <?php
+                                $nbEvt = $events->nbrEvents();
+                                if($nbrEvents = $nbEvt->fetch()){
+                                    echo $nbrEvents['nb'];
+                                }else{
+                                    echo '';
+                                }
+                                ?>
+                        </h5>
                         <p>Evènements</p>
                     </div>
                 </div>
@@ -340,34 +365,45 @@ include_once $layout.'/header.php';
 <section class="multi-gallery-section bg-gris section-padding">
     <div class="container">
         <div class="row">
-           <div class="col-md-12">
-               <div class="album-heading">
-                   <h2 class="text-center">Notre galerie</h2>
+            <div class="col-md-12">
+                <div class="album-heading">
+                    <h2 class="text-center">Notre galerie</h2>
 
-               </div>
-           </div>
+                </div>
+            </div>
+            <?php
+            $listeEven= $events->getSixEvents();
+            while($dataEvent = $listeEven->fetch()) {
+                $gal = $gallerie->getGallerieByIdForHome($dataEvent['id_events']);
+                if($gallerieData = $gal->fetch()){
+                    $couver = $gallerieData['photo'];
+                }else{
+                    $couver = "gallery.jpg";
+                }
+                ?>
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <span></span>
                         <div class="gallery-item-inner">
                             <div class="gallery-thumb">
-                                <img src="<?=$asset?>/media/a01.jpg" class="img-galerie" alt="image">
+                                <img src="<?=$domaine?>/uploads/<?=$couver;?>" class="img-galerie" alt="image">
                                 <div class="gallery-thumb-ovarlay"></div>
-                                <a href="" class="gallery-icon">
+                                <a href="<?=$domaine?>/galerie/<?=$dataEvent['slug'];?>" class="gallery-icon">
                                     <i class="fa fa-camera" aria-hidden="true"></i>
                                 </a>
                             </div>
                             <div class="gallery-title">
-                                <h4 class="font-15"><a href="#">AEEK 2021 Août,2021</a></h4>
+                                <h4 class="font-15"><a href="<?=$domaine?>/galerie/<?=$dataEvent['slug'];?>"><?=html_entity_decode(stripcslashes($dataEvent['nom'])).' '.month_fr(date('m', strtotime($dataEvent['date_events']))).','.date('Y', strtotime($dataEvent['date_events']));?></a></h4>
                             </div>
                         </div>
                     </div>
                 </div>
-
+            <?php
+            }
+            ?>
         </div>
     </div>
 </section>
-
 <section id="scholership-promo">
     <div class="container">
         <div class="row">
@@ -385,7 +421,8 @@ include_once $layout.'/header.php';
 <?php include_once $layout.'/footer.php';?>
 <script>
     $(document).ready(function(){
-    var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+     var dateEvents = $('#dateEvents').val();
+    var countDownDate = new Date(dateEvents).getTime();
 
     var x = setInterval(function() {
 

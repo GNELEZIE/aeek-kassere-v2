@@ -53,32 +53,56 @@
                     <div class="col-lg-12">
                         <div class="all-event-list">
                             <!-- Single Event Start -->
-                            <div class="single-upcoming-event">
-                                <div class="row">
-                                    <div class="col-lg-5">
-                                        <div class="up-event-thumb">
-                                            <img src="assets/img/event/event-img-1.jpg" class="img-fluid" alt="Upcoming Event">
-                                            <h4 class="up-event-date">It’s 27 February 2019</h4>
+                            <?php
+                            $evt = $flash->getAllFlash();
+                            while($flashData = $evt->fetch()){
+                                ?>
+                                <div class="single-upcoming-event">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="up-event-thumb">
+                                                <input type="hidden" id="dateEvents" value="<?=$flashData['date_event']?>"/>
+                                                <img src="<?=$domaine?>/uploads/<?=$flashData['photo']?>" class="img-fluid" alt="Upcoming Event">
+                                                <h4 class="up-event-date"><?=date('N', strtotime($flashData['date_event'])).' '. month_fr(date('m', strtotime($flashData['date_event']))).' '.date('Y', strtotime($flashData['date_event']))?></h4>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-7">
-                                        <div class="display-table">
-                                            <div class="display-table-cell">
-                                                <div class="up-event-text">
-                                                    <div class="event-countdown">
-                                                        <div class="event-countdown-counter" data-date="2018/9/10"></div>
-                                                        <p>Remaining</p>
+                                        <div class="col-lg-7">
+                                            <div class="display-table">
+                                                <div class="display-table-cell">
+                                                    <div class="up-event-text">
+                                                        <div class="event-count-sect">
+<!--                                                            <div class="event-countdown-counter-sec">-->
+<!--                                                                <div class="counter-item">-->
+<!--                                                                    <span class="counter-label">Jours</span>-->
+<!--                                                                    <span class="single-cont"> <i id="days">00</i> </span>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="counter-item">-->
+<!--                                                                    <span class="counter-label">heure</span>-->
+<!--                                                                    <span class="single-cont"> <i id="hours">00</i> </span>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="counter-item">-->
+<!--                                                                    <span class="counter-label">min</span>-->
+<!--                                                                    <span class="single-cont"> <i id="minutes">00</i> </span>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="counter-item">-->
+<!--                                                                    <span class="counter-label">S</span>-->
+<!--                                                                    <span class="single-cont"> <i id="second"></i> </span>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+                                                        </div>
+                                                        <h3><a href="#"><?= html_entity_decode(stripslashes($flashData['titre']))?></a></h3>
+                                                        <p><?= html_entity_decode(stripslashes($flashData['sous_titre']))?></p>
+                                                        <a href="#" class="btn btn-white py30 font-15">En savoir plus</a>
                                                     </div>
-                                                    <h3><a href="single-event.html">We are going to arrange a get together!</a></h3>
-                                                    <p>Hello everybody Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim and minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquipv ex ea.</p>
-                                                    <a href="single-event.html" class="btn btn-white py30 font-15">En savoir plus</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
