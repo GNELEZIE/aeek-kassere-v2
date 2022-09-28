@@ -22,15 +22,13 @@ include_once $layout.'/header.php';
                         <div class="col-lg-9">
                             <div class="slider-content">
                                 <?php if($ban['titre'] != ''){
-                                    $titres = '<h2 class=" animate__animated animate__zoomIn wow slideInRight"> <span > '.html_entity_decode(stripslashes($ban['titre'])).'</span> </h2>
-';
+                                    $titres = '<h2 class="home-title1 animate__animated animate__zoomIn wow slideInRight">'.html_entity_decode(stripslashes($ban['titre'])).'</h2>';
                                 }else{
                                     $titres = '';
                                 }
                                 ?>
                                 <?=$titres?>
-                                <h3>L'association des élèves et Etudiants de <span>Kasséré</span></h3>
-                                <p><?=html_entity_decode(stripslashes($ban['sous_titre']))?></p>
+                                <h5 class="home-title2"><?=html_entity_decode(stripslashes($ban['sous_titre']))?></h5>
                                 <div class="slider-btn">
                                     <a href="#" class="btn btn-brand smooth-scroll btn-orange radius-6">Formation</a>
                                 </div>
@@ -64,12 +62,18 @@ include_once $layout.'/header.php';
                         <h3>Événement à venir</h3>
                     </div>
                     <div class="upcoming-event-content owl-carousel">
+                        <?php
+                        $evt = $flash->getAllFlash();
+                        while($flashData = $evt->fetch()){
+
+
+                        ?>
                         <div class="single-upcoming-event">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="up-event-thumb">
                                         <img src="<?=$asset?>/media/event-img-1.jpg" class="img-fluid" alt="Upcoming Event">
-                                        <h4 class="up-event-date">Le 25 Janvier 2022 </h4>
+                                        <h4 class="up-event-date"><?=date('N', strtotime($flashData['date_event'])).' '. month_fr(date('m', strtotime($flashData['date_event']))).' '.date('Y', strtotime($flashData['date_event']))?></h4>
                                     </div>
                                 </div>
 
@@ -97,8 +101,8 @@ include_once $layout.'/header.php';
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h3><a href="#">Première réunion de l'année !</a></h3>
-                                                <p>Hello everybody Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim and minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquipv ex ea.</p>
+                                                <h3><a href="#"><?= html_entity_decode(stripslashes($flashData['titre']))?></a></h3>
+                                                <p><?= html_entity_decode(stripslashes($flashData['sous_titre']))?></p>
                                                 <a href="#" class="btn btn-white py30 font-15">En savoir plus</a>
                                             </div>
                                         </div>
@@ -106,6 +110,9 @@ include_once $layout.'/header.php';
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        }
+                        ?>
                         <div class="single-upcoming-event"></div>
                         <div class="single-upcoming-event"></div>
                     </div>
@@ -366,7 +373,7 @@ include_once $layout.'/header.php';
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="scholership-promo-text">
-                    <h2>S'inscrire pour avoir<span> la carte de membre</span> de l'AEEP</h2>
+                    <h2>S'inscrire pour suivre<span> la formation </span> de l'AEEK</h2>
                     <p>Alumni Needs enables you to harness the power of your alumni network. Whatever may be the need academic, relocation, career, projects, mentorship, etc you can ask the community and get </p>
                     <a href="#" class="btn btn-green text-white font-15">S'inscrire maintenant</a>
                 </div>

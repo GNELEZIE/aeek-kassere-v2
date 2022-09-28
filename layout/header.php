@@ -26,7 +26,15 @@
 <link href="<?=$asset?>/plugins/lity/dist/lity.css" rel="stylesheet"/>
 <link rel="stylesheet" href="<?=$asset?>/plugins/ani/animate.css"/>
 <style>
-
+.bg-home{
+    background-color: #ecf1f57d !important;
+}
+.home-title1{
+   font-size: 50px !important;
+}
+#blog-area {
+    background-color: #ecf1f57d !important;
+}
 .zoom-icon{
     border: 2px solid #fff;
     padding: 5px;
@@ -572,11 +580,42 @@ a.box-card {
 }
 .pagination {
     margin-top: 30px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
+@media(max-width: 767px) {
+    .home-title1{
+        padding-top: 73px !important;
+        font-size: 35px !important;
+    }
+    .home-title2{
+        font-size: 15px;
+        line-height: 1.5;
+        padding-top: 15px;
+    }
+    #slider-area .single-slide-wrap {
+        padding: 63px 0 60px !important;
+    }
+    #slider-area .owl-dots {
+        bottom: 15px !important;
+
+    }
+    .up-event-text{
+        text-align: center !important;
+    }
+
+
+
+
+
+
+
+
+
+}
+
 </style>
 </head>
-<body>
+<body class="<?php if($lien == 'home' || $lien == ''){echo 'bg-home';} ;?>">
 
 <header id="header-area">
     <div class="header-bottom-area" id="fixheader">
