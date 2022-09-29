@@ -26,6 +26,33 @@
 <link href="<?=$asset?>/plugins/lity/dist/lity.css" rel="stylesheet"/>
 <link rel="stylesheet" href="<?=$asset?>/plugins/ani/animate.css"/>
 <style>
+#slider-area .single-slide-wrap, .gallery-gird .col-lg-3 .single-gallery-item {
+    background-position: inherit !important;
+}
+#slider-area .single-slide-wrap:after {
+    background-color: #00000080 !important;
+}
+.single-upcoming-event .up-event-thumb img {
+    object-fit: cover !important;
+    height: 279px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .bg-home{
     background-color: #ecf1f57d !important;
 }
