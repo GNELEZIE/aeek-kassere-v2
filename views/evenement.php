@@ -1,104 +1,296 @@
-<?php include_once $layout.'/header.php';?>
+<?php
+if(isset($doc[1])){
+    $return = $doc[0]."/".$doc[1];
+}else{
+    $return = $doc[0];
+}
+
+
+
+if(isset($doc[1]) and !isset($doc[2])) {
+
+    $list = $flash->getFlashySlug($doc[1]);
+    $listeNbr = $flash->getFlashBySlugNbr($doc[1])->fetch();
+
+    if ($dataFlas = $list->fetch()){
+
+    }else {
+        header('location:' . $domaine . '/error');
+        exit();
+    }
+}else{
+    if(isset($_GET['page']) and is_numeric($_GET['page'])){
+        $numPage = $_GET['page'];
+        $fin = 6 * $numPage;
+        $debut = $fin - 6;
+    }else{
+        $numPage = 1;
+        $debut = 0;
+        $fin = 6;
+    }
+
+    $res = $flash->getAllNbrFlash();
+
+    if($nbre = $res->fetch()){
+        $pages = ceil($nbre['nb']/6);
+    }else{
+        $pages = 1;
+    }
+    $pagination_list = '';
+    $myPage = '/evenement';
+    $liste = $flash->getAllFlash($debut,$fin);
+}
+include_once $layout.'/header.php';
+?>
     <section id="page-title-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 m-auto text-center">
                     <div class="page-title-content">
-                        <h1 class="h2 pt-5">Notre galerie</h1>
+                        <h1 class="h2 pt-5">Nos évènements</h1>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<section class="multi-gallery-section bg-gris section-padding">
+<section id="page-content-wrap" class="multi-gallery-section bg-gris section-padding">
     <div class="container">
-        <div class="event-page-content-wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="event-filter-area">
-                            <form  class="form-inline">
-                                <select name="year" id="year">
-                                    <option selected>Année</option>
-                                    <option>2018</option>
-                                    <option>2017</option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                    <option>2014</option>
-                                </select>
+        <?php
+        if(isset($doc[1]) and !isset($doc[2])){
 
-                                <select name="place" id="place">
-                                    <option selected>Ville</option>
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>Arizona</option>
-                                    <option>Colorado</option>
-                                    <option>Delaware</option>
-                                </select>
+            ?>
+            <div class="row about-page-content-wrap">
+                <div class="col-lg-11 m-auto">
+                    <div class="single-about-text">
 
-                                <select name="type" id="type">
-                                    <option selected>Type</option>
-                                    <option>Meetup</option>
-                                    <option>Seminar</option>
-                                    <option>Get Together</option>
-                                </select>
-
-                                <button class="btn btn-orange text-white font-15 btn-filtrer">Filter</button>
-                            </form>
-                        </div>
+                        <img src="<?=$domaine?>/uploads/<?=$dataFlas['photo']?>" alt="About" class="img-fluid img-left">
+                        <h2 class="h3"><?= html_entity_decode(stripslashes($dataFlas['titre']))?></h2>
+                        <h5 class="yr"><?= date_lettre($dataFlas['date_event'])?></h5>
+                        <p><?= html_entity_decode(stripslashes($dataFlas['sous_titre']))?></p>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="all-event-list">
-                            <!-- Single Event Start -->
-                            <?php
-                            $evt = $flash->getAllFlash();
-                            while($flashData = $evt->fetch()){
-                                ?>
-                                <div class="single-upcoming-event">
-                                    <div class="row">
-                                        <div class="col-lg-5">
-                                            <div class="up-event-thumb">
-                                                <input type="hidden" id="dateEvents" value="<?=$flashData['date_event']?>"/>
-                                                <img src="<?=$domaine?>/uploads/<?=$flashData['photo']?>" class="img-fluid" alt="Upcoming Event">
-                                                <h4 class="up-event-date"><?=date('N', strtotime($flashData['date_event'])).' '. month_fr(date('m', strtotime($flashData['date_event']))).' '.date('Y', strtotime($flashData['date_event']))?></h4>
+            </div>
+        <?php
+        }else{
+            ?>
+            <div class="event-page-content-wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="all-event-list">
+                                <?php
+                                while($flashData = $liste->fetch()){
+                                    ?>
+                                    <div class="single-upcoming-event">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <div class="up-event-thumb">
+                                                    <input type="hidden" id="dateEvents" value="<?=$flashData['date_event']?>"/>
+                                                    <img src="<?=$domaine?>/uploads/<?=$flashData['photo']?>" class="img-fluid" alt="Upcoming Event">
+                                                    <h4 class="up-event-date"><?= date_lettre($flashData['date_event'])?></h4>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-7">
-                                            <div class="display-table">
-                                                <div class="display-table-cell">
-                                                    <div class="up-event-text">
-                                                        <div class="event-count-sect">
-<!--                                                            <div class="event-countdown-counter-sec">-->
-<!--                                                                <div class="counter-item">-->
-<!--                                                                    <span class="counter-label">Jours</span>-->
-<!--                                                                    <span class="single-cont"> <i id="days">00</i> </span>-->
-<!--                                                                </div>-->
-<!--                                                                <div class="counter-item">-->
-<!--                                                                    <span class="counter-label">heure</span>-->
-<!--                                                                    <span class="single-cont"> <i id="hours">00</i> </span>-->
-<!--                                                                </div>-->
-<!--                                                                <div class="counter-item">-->
-<!--                                                                    <span class="counter-label">min</span>-->
-<!--                                                                    <span class="single-cont"> <i id="minutes">00</i> </span>-->
-<!--                                                                </div>-->
-<!--                                                                <div class="counter-item">-->
-<!--                                                                    <span class="counter-label">S</span>-->
-<!--                                                                    <span class="single-cont"> <i id="second"></i> </span>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
+                                            <div class="col-lg-7">
+                                                <div class="display-table">
+                                                    <div class="display-table-cell">
+                                                        <div class="up-event-text">
+                                                            <h3><a href="#"><?= html_entity_decode(stripslashes($flashData['titre']))?></a></h3>
+                                                            <p><?= html_entity_decode(stripslashes($flashData['sous_titre']))?></p>
+                                                            <a href="<?=$domaine?>/evenement/<?=$flashData['slug']?>" class="btn btn-white py30 font-15">En savoir plus</a>
                                                         </div>
-                                                        <h3><a href="#"><?= html_entity_decode(stripslashes($flashData['titre']))?></a></h3>
-                                                        <p><?= html_entity_decode(stripslashes($flashData['sous_titre']))?></p>
-                                                        <a href="#" class="btn btn-white py30 font-15">En savoir plus</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php
+                            if(isset($doc[0]) and !isset($doc[1])){
+                                ?>
+                                <div class="text-center wow bounceInUp center">
+                                    <ul class="pagination" style="display: inherit !important;">
+                                        <?php
+                                        if(isset($_GET['page']) and is_numeric($_GET['page'])){
+                                            if($pages < 2 ){
+                                                $pagination_list = '
+                                            <li><a href="javascript:void(0)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                            <li><a href="javascript:void(0)"  class="active">1</a></li>
+                                            <li><a href="javascript:void(0)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                        ';
+                                            }else{
+                                                if($_GET['page'] > 1 ){
+                                                    $prec = $_GET['page']-1;
+                                                    $pagination_list .= '
+                                           <li> <a href="'.$domaine.$myPage.'?page='.$prec.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                        ';
+                                                }else{
+                                                    $prec = 1;
+                                                    $pagination_list .= '
+                                           <li><a href="javascript:void(0)" style="cursor: not-allowed"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                        ';
+                                                }
+
+                                                if($pages > 5){
+                                                    for($i = 1; $i <= $pages ; $i++){
+                                                        if($_GET['page'] > 2){
+                                                            if($i > $_GET['page']-2 and $i < $_GET['page']+2){
+                                                                if($i != $pages){
+                                                                    if($i == $_GET['page']){
+                                                                        $pagination_list .='
+                                                                 <li class="active"><a href="javascript:void(0)">'.$i.'</a></li>
+                                                            ';
+                                                                    }else{
+                                                                        if($i < 3){
+                                                                            $pagination_list .='
+                                                                 <li><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                            ';
+                                                                        }else{
+                                                                            $pagination_list .='
+                                                                 <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                            ';
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }else{
+                                                            if($i < 6){
+                                                                if($i == $_GET['page']){
+                                                                    $pagination_list .='
+                                                             <li><a href="javascript:void(0)"  class="active">'.$i.'</a></li>
+                                                        ';
+                                                                }else{
+                                                                    if($i < 3){
+                                                                        $pagination_list .='
+                                                             <li><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                        ';
+                                                                    }else{
+                                                                        $pagination_list .='
+                                                             <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                        ';
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    if($_GET['page'] < $pages-2){
+                                                        $pagination_list .='
+                                                    <li class="hidden-xs"><a href="javascript:void(0)">...</a></li>
+                                                ';
+                                                    }
+                                                    if($_GET['page'] == $pages){
+                                                        $pagination_list .='
+                                                    <li><a href="javascript:void(0)"  class="active">'.$i.'</a></li>
+                                                ';
+                                                    }else{
+                                                        $pagination_list .='
+                                                    <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$pages.'">'.$pages.'</a></li>
+                                                ';
+                                                    }
+                                                }else{
+                                                    for($i = 1; $i <= $pages ; $i++){
+                                                        if($i == $_GET['page']){
+                                                            $pagination_list .='
+                                                        <li><a href="javascript:void(0)"  class="active">'.$i.'</a></li>
+                                                ';
+                                                        }else{
+                                                            if($i < 3){
+                                                                $pagination_list .='
+                                                    <li><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                ';
+                                                            }else{
+                                                                $pagination_list .='
+                                                    <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                ';
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                if($_GET['page'] < $pages ){
+                                                    $suiv = $_GET['page']+1;
+                                                    $pagination_list .= '
+                                            <li><a href="'.$domaine.$myPage.'?page='.$suiv.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                        ';
+                                                }else{
+                                                    $suiv = $pages;
+                                                    $pagination_list .= '
+                                            <li><a href="javascript:void(0)" style="cursor: not-allowed"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                        ';
+                                                }
+
+                                            }
+                                        }else{
+                                            if($pages < 2 ){
+                                                $pagination_list = '
+                                            <li><a href="javascript:void(0)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                            <li><a href="javascript:void(0)"  class="active">1</a></li>
+                                            <li><a href="javascript:void(0)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                        ';
+                                            }else{
+                                                $pagination_list .= '
+                                            <li><a href="javascript:void(0)" style="cursor: not-allowed"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                        ';
+                                                if($pages > 5){
+                                                    for($i = 1; $i <= $pages ; $i++){
+                                                        if($i < 6){
+                                                            if($i == 1){
+                                                                $pagination_list .='
+                                                            <li><a href="javascript:void(0)"  class="active">'.$i.'</a></li>
+                                                        ';
+                                                            }else{
+                                                                if($i < 3){
+                                                                    $pagination_list .='
+                                                            <li><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                        ';
+                                                                }else{
+                                                                    $pagination_list .='
+                                                            <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                        ';
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    $pagination_list .='
+                                                    <li class="hidden-xs"><a href="javascript:void(0)">...</a></li>
+                                            ';
+                                                    $pagination_list .='
+                                                    <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$pages.'">'.$pages.'</a></li>
+                                            ';
+                                                }else{
+                                                    for($i = 1; $i <= $pages ; $i++){
+                                                        if($i == 1){
+                                                            $pagination_list .='
+                                                        <li><a href="javascript:void(0)"  class="active">'.$i.'</a></li>
+                                                    ';
+                                                        }else{
+                                                            if($i < 3){
+                                                                $pagination_list .='
+                                                    <li><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                    ';
+                                                            }else{
+                                                                $pagination_list .='
+                                                    <li class="hidden-xs"><a href="'.$domaine.$myPage.'?page='.$i.'">'.$i.'</a></li>
+                                                    ';
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                $pagination_list .= '
+                                            <li><a href="'.$domaine.$myPage.'?page='.(1+1).'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                        ';
+                                            }
+                                        }
+                                        ?>
+                                        <?=$pagination_list?>
+                                    </ul>
                                 </div>
                             <?php
                             }
@@ -106,27 +298,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="pagination-wrap text-center">
-                            <nav>
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">50</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i
-                                                class="fa fa-angle-right"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
 </section>
 

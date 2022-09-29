@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-lg-8 m-auto text-center">
                 <div class="page-title-content">
-                    <h1 class="h2 pt-5">Carte de membre de l'AEEP</h1>
-                    <p>Pour ceux qui ont déjà fait l'inscription vous pouvez verifier si votre carte est disponible</p>
-                    <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Verifier la disponibilité</a>
+                    <h1 class="h2 pt-5">Espace membre</h1>
+                    <p>Pour suivre les formations et être enregistrer dans la base de donnée de l'AEEK vous devrez vous inscrire </p>
+<!--                    <a href="#page-content-wrap" class="btn btn-brand smooth-scroll">Verifier la disponibilité</a>-->
                 </div>
             </div>
         </div>
@@ -27,9 +27,9 @@
                                         <div class="display-table">
                                             <div class="display-table-cell">
                                                 <div class="signin-area-wrap">
-                                                    <h4>Already a Member?</h4>
+                                                    <h4>Connexion</h4>
                                                     <div class="sign-form">
-                                                        <form action="https://codeboxr.net/themedemo/unialumni/html/index.html">
+                                                        <form method="get">
                                                             <input type="text" placeholder="Enter your ID">
                                                             <input type="password" placeholder="Password">
                                                             <button type="submit" class="btn btn-reg">Login</button>

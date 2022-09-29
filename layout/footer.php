@@ -7,7 +7,7 @@
                         <div class="widgei-body">
                             <div class="footer-about">
                                 <img src="<?=$asset?>/media/logos.png" alt="Logo" class="img-fluid" />
-                                <p>AEEP est la plus grande association des élèves et étudiants du Pongala</p>
+                                <p>AEEK est la seule association des élèves et étudiants de Kasséré</p>
                             </div>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                         <h4 class="widget-title">Navigation</h4>
                         <div class="widgei-body">
                             <ul class="footer-list clearfix">
-                                <li><a href="#">Pricing Plan</a></li>
+                                <li><a href="#">Exercice</a></li>
                                 <li><a href="#">Categories</a></li>
                             </ul>
                         </div>
@@ -29,7 +29,7 @@
                         <h4 class="widget-title">Liens utils</h4>
                         <div class="widgei-body">
                             <ul class="footer-list clearfix">
-                                <li><a href="#">Pricing Plan</a></li>
+                                <li><a href="#">Pricing</a></li>
                                 <li><a href="#">Categories</a></li>
                             </ul>
                         </div>
@@ -56,16 +56,14 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="footer-bottom-text">
-                        <p>Copyright © AEEP 2022. Design and Development by  <a href="tel:0546859936" class="text-orange"> Gnelezie Ouattara</a> </p>
+                        <p>Copyright © AEEK 2022. Design and Development by  <a href="tel:0546859936" class="text-orange"> Gnelezie Ouattara</a> </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
-<a href="#" class="scroll-top">
-    <i class="fa fa-angle-up"></i>
-</a>
+<a href="#" class="scroll-top"><i class="fa fa-angle-up"></i></a>
 <script src="<?=$asset?>/vendor/jquery/jquery-3.3.1.min.js"></script>
 <script src="<?=$asset?>/vendor/bootstrap/js/popper.min.js"></script>
 <script src="<?=$asset?>/vendor/bootstrap/js/bootstrap.min.js"></script>

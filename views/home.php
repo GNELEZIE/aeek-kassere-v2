@@ -63,7 +63,7 @@ include_once $layout.'/header.php';
                     </div>
                     <div class="upcoming-event-content owl-carousel">
                         <?php
-                        $evt = $flash->getAllFlash();
+                        $evt = $flash->getHomeFlash();
                         while($flashData = $evt->fetch()){
                         ?>
                         <div class="single-upcoming-event">
@@ -72,7 +72,7 @@ include_once $layout.'/header.php';
                                     <div class="up-event-thumb">
                                         <input type="hidden" id="dateEvents" value="<?=$flashData['date_event']?>"/>
                                         <img src="<?=$domaine?>/uploads/<?=$flashData['photo']?>" class="img-fluid" alt="Upcoming Event">
-                                        <h4 class="up-event-date"><?=date('N', strtotime($flashData['date_event'])).' '. month_fr(date('m', strtotime($flashData['date_event']))).' '.date('Y', strtotime($flashData['date_event']))?></h4>
+                                        <h4 class="up-event-date"><?=date_lettre($flashData['date_event'])?></h4>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@ include_once $layout.'/header.php';
                                                 </div>
                                                 <h3><a href="#"><?= html_entity_decode(stripslashes($flashData['titre']))?></a></h3>
                                                 <p><?= html_entity_decode(stripslashes($flashData['sous_titre']))?></p>
-                                                <a href="#" class="btn btn-white py30 font-15">En savoir plus</a>
+                                                <a href="<?=$domaine?>/evenement/<?=$flashData['slug']?>" class="btn btn-white py30 font-15">En savoir plus</a>
                                             </div>
                                         </div>
                                     </div>

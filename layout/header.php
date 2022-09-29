@@ -37,9 +37,14 @@
     height: 279px !important;
 }
 
+#page-content-wrap .about-page-content-wrap .single-about-text:first-child img {
+    filter: inherit !important;
+}
 
-
-
+.btn {
+    padding: 4px 28px !important;
+    border-radius: 6px !important;
+}
 
 
 
@@ -665,7 +670,7 @@ a.box-card {
                                 <li class="nav-item <?php if($lien == 'offre-d-emplois'){echo 'active';} ;?>"><a class="nav-link" href="<?=$domaine?>/offre-d-emplois">Ofres d'emplois</a></li>
                                 <li class="nav-item <?php if($lien == 'galerie'){echo 'active';} ;?>"><a class="nav-link" href="<?=$domaine?>/galerie">Galerie</a></li>
                                 <li class="nav-item <?php if($lien == 'contact'){echo 'active';} ;?>"><a class="nav-link" href="<?=$domaine?>/contact">Contact</a></li>
-                                <li class="nav-item <?php if($lien == 'inscription'){echo 'active';} ;?>"><a class="nav-link" href="<?=$domaine?>/inscription">Inscription</a></li>
+<!--                                <li class="nav-item --><?php //if($lien == 'inscription'){echo 'active';} ;?><!--"><a class="nav-link" href="--><?//=$domaine?><!--/inscription">Inscription</a></li>-->
                             </ul>
                         </div>
                     </nav>
