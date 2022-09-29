@@ -6,7 +6,7 @@
                     <div class="single-widget-wrap">
                         <div class="widgei-body">
                             <div class="footer-about">
-                                <img src="<?=$asset?>/media/logos.png" alt="Logo" class="img-fluid" />
+                                <h4 class="widget-title m-0">A propos</h4>
                                 <p>AEEK est la seule association des élèves et étudiants de Kasséré</p>
                             </div>
                         </div>
@@ -15,31 +15,42 @@
 
                 <div class="col-md-2">
                     <div class="single-widget-wrap">
-                        <h4 class="widget-title">Navigation</h4>
+                        <h4 class="widget-title m-0">Navigation</h4>
                         <div class="widgei-body">
                             <ul class="footer-list clearfix">
-                                <li><a href="#">Exercice</a></li>
-                                <li><a href="#">Categories</a></li>
+                                <li><a href="<?=$domaine?>/contact">Contact</a> </li>
+                                <li><a href="<?=$domaine?>/blog">Actualité</a> </li>
+                                <li><a href="<?=$domaine?>/events">Galerie</a> </li>
+                                <li><a href="<?=$domaine?>/emplois">Ofres d'emplois</a> </li>
+                                <li><a href="https://www.youtube.com/channel/UCDhp_Sepv7QJEmiTdCRAuXg" target="_blank">Web tv</a> </li>
+
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="single-widget-wrap">
-                        <h4 class="widget-title">Liens utils</h4>
+                        <h4 class="widget-title m-0">Liens utils</h4>
                         <div class="widgei-body">
                             <ul class="footer-list clearfix">
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">Categories</a></li>
+                                <li><a href="#">Nos statuts</a> </li>
+                                <li><a href="#">Bureau</a> </li>
+                                <li><a href="#">MUDESKA</a> </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="single-widget-wrap">
-                        <h4 class="widget-title">Contacts</h4>
+                        <h4 class="widget-title m-0">Contacts</h4>
                         <div class="widgei-body">
+                            <ul class="mb-3">
+                                <li><a href="mailTo:contact@aeek-kassere.com"><i class="fa fa-envelope"></i>  contact@aeek-kassere.com</a> </li>
+                                <li><a href="#"><i class="fa fa-phone"></i> +255 05 46 85 99 36</a> </li>
+                                <li><a href="#"><i class="fa fa-whatsapp"></i> +255 05 46 85 99 36</a> </li>
+                            </ul>
                             <div class="footer-social-icons">
+
                                 <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
                                 <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
                                 <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
